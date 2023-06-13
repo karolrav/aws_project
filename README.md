@@ -1,5 +1,5 @@
 # Readme
-
+Infrastructure as Code (IaC) solution using Terraform to provision and manage resources on Amazon Web Services (AWS) cloud services.
 # How to run 
 1. Initialize Terraform `terraform init`
 2. Review the configuration and verify the resources `terraform plan`
