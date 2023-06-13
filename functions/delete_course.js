@@ -6,26 +6,28 @@ const dynamodb = new AWS.DynamoDB({
 
 exports.handler = (event, context, callback) => {
   const params = {
-    TableName: "authors"
+    Key: {
+      id: {
+        S: event.id
+      }
+    },
+    TableName: "courses"
   };
-  dynamodb.scan(params, (err, data) => {
+  dynamodb.deleteItem(params, (err, data) => {
     if (err) {
       console.log(err);
       callback(err);
     } else {
-      const authors = data.Items.map(item => {
-        return { id: item.id.S, firstName: item.firstName.S, lastName: item.lastName.S };
-      });
       var response = {
         "statusCode": 200,
-        "body": JSON.stringify(authors),
+        "body": JSON.stringify(data),
         "isBase64Encoded": false,
         'headers' : {
           'Access-Control-Allow-Origin' : '*',
           'Access-Control-Allow-Headers': 'Content-Type',
-          'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
+          'Access-Control-Allow-Methods': 'OPTIONS,POST,GET,DELETE'
       }
-      };
+    }
       callback(null, response);
     }
   });

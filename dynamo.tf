@@ -22,4 +22,5 @@ resource "aws_dynamodb_table" "tf_authors_table" {
   type = "S"
  }
  hash_key = "id"
+
 }
