@@ -15,7 +15,7 @@ resource "aws_api_gateway_resource" "courses" {
 }
 resource "aws_api_gateway_resource" "coursesid" {
   rest_api_id = "${aws_api_gateway_rest_api.example.id}"
-  parent_id   = "${aws_api_gateway_resource.courses.id}"
+  parent_id   = aws_api_gateway_resource.courses.id
   path_part   = "{id}"
 }
 //methods
@@ -51,7 +51,7 @@ resource "aws_api_gateway_method" "delete" {
 }
 resource "aws_api_gateway_method" "get" {
   rest_api_id   = "${aws_api_gateway_rest_api.example.id}"
-  resource_id   = "${aws_api_gateway_resource.coursesid.id}"
+  resource_id   = aws_api_gateway_resource.coursesid.id
   http_method   = "GET"
   authorization = "NONE"
   request_parameters = {
@@ -119,6 +119,9 @@ resource "aws_api_gateway_method_response" "response_200_get" {
     "method.response.header.Access-Control-Allow-Methods" = true,
     "method.response.header.Access-Control-Allow-Headers" = true
   }
+   response_models = {
+    "application/json" = "Empty"
+   }
 }
 resource "aws_api_gateway_method_response" "response_200_get_c" {
   rest_api_id = aws_api_gateway_rest_api.example.id
@@ -187,29 +190,38 @@ resource "aws_api_gateway_integration" "lambda3" {
   request_templates = {
     "application/xml" = <<EOF
 {
-    "id": $input.params('id')
+    "id": "$input.params('id')"
 }
 EOF
   }
 }
 resource "aws_api_gateway_integration" "lambda4" {
   rest_api_id = "${aws_api_gateway_rest_api.example.id}"
-  resource_id = "${aws_api_gateway_method.get.resource_id}"
+  resource_id = aws_api_gateway_resource.coursesid.id
   http_method = "${aws_api_gateway_method.get.http_method}"
-  cache_key_parameters = ["method.request.path.id"]
   integration_http_method = "POST"
-  type                    = "AWS_PROXY"
+  type                    = "AWS"
   uri                     = "${aws_lambda_function.get_course.invoke_arn}"
-  passthrough_behavior    = "WHEN_NO_MATCH"
-  request_parameters = {
-        "integration.request.path.id" = "method.request.path.id"
-    }
-  request_templates = {
-    "application/xml" = <<EOF
+  passthrough_behavior    = "WHEN_NO_TEMPLATES"
+    request_templates = {
+    "application/json" = <<EOF
 {
-   "body" : $input.json('$')
+  "id": "$input.params('id')"
 }
 EOF
+  }
+}
+
+resource "aws_api_gateway_integration_response" "MyDemoIntegrationResponse" {
+  rest_api_id = "${aws_api_gateway_rest_api.example.id}"
+  resource_id = aws_api_gateway_resource.coursesid.id
+  http_method = "${aws_api_gateway_method.get.http_method}"
+  status_code = aws_api_gateway_method_response.response_200_get.status_code
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Origin" = "'*'"
+    "method.response.header.Access-Control-Allow-Headers" = "'Content-Type'"
+    "method.response.header.Access-Control-Allow-Methods" = "'OPTIONS,POST,GET'"
   }
 }
 
