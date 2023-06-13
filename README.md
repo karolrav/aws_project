@@ -25,7 +25,7 @@ Backend consists of 6 lambda nodejs functions integrated with api gateway.
 * save-course to create a new course
 * update-course to update a course
 * delete-course to delete a course
-* 
+
  ![](src/api_gateway.png) 
 # Database
 Application uses amazon DynamoDB as nosql database with 2 tables: 
@@ -45,7 +45,7 @@ The architecture can be designed to be highly available. AWS Lambda, API Gateway
 # Security: 
 AWS services such as Amazon Cognito, when integrated into the architecture, can provide user authentication, authorization, and user management capabilities, helping to protect user data. Additionally, AWS provides various security features and best practices to secure the infrastructure and data, such as network isolation, encryption options, and identity and access management controls.
 
-#TODO
+# TODO
 - [ ] Add Amazon Cognito to incorporate authentication and authorization , as resources are created but need to be implemented from Reactjs ( registration page / login page / token for usage)
 - [ ] Clean code on terrafrom IAAC most of resources can be reusable or passed for loop. Also move to folders for better visibility.
 - [ ] Add additional variables to configure scalability, high availability and security easier.
