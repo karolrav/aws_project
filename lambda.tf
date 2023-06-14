@@ -1,3 +1,4 @@
+#Todo make more prettier: loop through resources to clean some code.
 data "aws_iam_policy_document" "assume_role" {
   statement {
     effect = "Allow"
@@ -229,3 +230,4 @@ resource "aws_lambda_function" "update_course" {
 
   runtime = "nodejs16.x"
 }
+

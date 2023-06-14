@@ -1,3 +1,4 @@
+# TODO enable replication 
 resource "aws_dynamodb_table" "tf_course_table" {
  name = "courses"
  billing_mode = "PROVISIONED"

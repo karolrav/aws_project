@@ -1,11 +1,9 @@
 resource "aws_amplify_app" "example" {
   name       = "example"
   repository = "https://github.com/karolrav/React-front"
-
-
   access_token = var.github_token
 
-  # The default build_spec added by the Amplify Console for React.
+  # build_spec for React.
   build_spec = <<-EOT
     version: 1
     frontend:
