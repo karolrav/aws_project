@@ -33,24 +33,14 @@ exports.handler = (event, context, callback) => {
       console.log(err);
       callback(err);
     } else {
-      const response = {
-        statusCode: 200,
-        body: JSON.stringify({
-          id: data.Item.id.S,
-          title: data.Item.title.S,
-          watchHref: data.Item.watchHref.S,
-          authorId: data.Item.authorId.S,
-          length: data.Item.length.S,
-          category: data.Item.category.S
-        }),
-        isBase64Encoded: false,
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Headers": "Content-Type",
-          "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT"
-        }
-      };
-      callback(null, response);
+      callback(null, {
+        id: params.Item.id.S,
+        title: params.Item.title.S,
+        watchHref: params.Item.watchHref.S,
+        authorId: params.Item.authorId.S,
+        length: params.Item.length.S,
+        category: params.Item.category.S
+      });
     }
   });
 };

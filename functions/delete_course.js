@@ -18,17 +18,7 @@ exports.handler = (event, context, callback) => {
       console.log(err);
       callback(err);
     } else {
-      var response = {
-        "statusCode": 200,
-        "body": JSON.stringify(data),
-        "isBase64Encoded": false,
-        'headers' : {
-          'Access-Control-Allow-Origin' : '*',
-          'Access-Control-Allow-Headers': 'Content-Type',
-          'Access-Control-Allow-Methods': 'OPTIONS,POST,GET,DELETE'
-      }
-    }
-      callback(null, response);
+      callback(null, data);
     }
   });
 };
