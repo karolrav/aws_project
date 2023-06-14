@@ -16,6 +16,7 @@ List of AWS services:
 # Frontend
 Link to frontend forked source code [React boilerplate app](https://github.com/karolrav/React-front)
 Deployed from repository.
+Web hosted on Amplify can be reached [Frontend Courses and authors app](https://master.d1pv7v0gcev7ti.amplifyapp.com)
 # Backend
 Backend consists of 6 lambda nodejs functions integrated with api gateway.
 
@@ -49,4 +50,6 @@ AWS services such as Amazon Cognito, when integrated into the architecture, can 
 - [ ] Add Amazon Cognito to incorporate authentication and authorization , as resources are created but need to be implemented from Reactjs ( registration page / login page / token for usage)
 - [ ] Clean code on terrafrom IAAC most of resources can be reusable or passed for loop. Also move to folders for better visibility.
 - [ ] Add additional variables to configure scalability, high availability and security easier.
+- [ ] Move files to folders also create modules for visibility.
+- [ ] Implement swagger api deployment/models/mapping instead of seperate resources
 
